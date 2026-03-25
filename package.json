@@ -1,0 +1,20 @@
+{
+  "name": "copilot-btw",
+  "version": "0.1.0",
+  "description": "A /btw slash command extension for GitHub Copilot CLI — quick side questions without context pollution",
+  "type": "module",
+  "scripts": {
+    "test": "node --test __tests__/btw.test.mjs"
+  },
+  "keywords": [
+    "copilot",
+    "copilot-cli",
+    "extension",
+    "btw"
+  ],
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kuz/copilot-btw.git"
+  }
+}
