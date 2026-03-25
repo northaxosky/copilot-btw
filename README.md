@@ -4,6 +4,8 @@ A `/btw` slash command extension for [GitHub Copilot CLI](https://github.com/git
 
 Inspired by Claude Code's `/btw` command.
 
+> 📣 **Feature request:** [github/copilot-cli#2280](https://github.com/github/copilot-cli/issues/2280) — proposing a first-party `/btw` with true ephemeral model calls.
+
 ## What it does
 
 Type `/btw <question>` and get a concise answer inline. The extension intercepts
