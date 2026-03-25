@@ -7,7 +7,7 @@ const session = await joinSession({
       const { isBtw, question } = parseBtwPrompt(input.prompt);
       if (!isBtw) return;
 
-      await session.log("💡 /btw — answering quick side question", { ephemeral: true });
+      await session.log("💡 btw — answering quick side question", { ephemeral: true });
 
       return {
         modifiedPrompt: buildModifiedPrompt(question),
@@ -16,7 +16,7 @@ const session = await joinSession({
     },
 
     onSessionStart: async () => {
-      await session.log("btw extension loaded — use /btw <question> for quick side questions");
+      await session.log("btw extension loaded — type btw <question> for quick side questions");
     },
   },
   tools: [],

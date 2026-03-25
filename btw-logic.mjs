@@ -5,8 +5,8 @@
  * it directly — no SDK dependency required.
  */
 
-/** Matches `/btw <question>` at the start of the prompt (case-insensitive). */
-const BTW_PATTERN = /^\/btw\s+([\s\S]+)/i;
+/** Matches `btw <question>` at the start of the prompt (case-insensitive). */
+const BTW_PATTERN = /^btw\s+([\s\S]+)/i;
 
 /**
  * Detect whether a prompt is a /btw side question.
@@ -38,7 +38,7 @@ export function buildModifiedPrompt(question) {
  */
 export function buildAdditionalContext() {
   return [
-    "IMPORTANT: This is a quick side question from the user (via /btw).",
+    "IMPORTANT: This is a quick side question from the user (via btw).",
     "Answer concisely in a few sentences — do NOT use any tools,",
     "do NOT read or edit files, do NOT run commands.",
     "Just answer the question directly and briefly.",

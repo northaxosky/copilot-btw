@@ -6,7 +6,7 @@
  */
 import { joinSession } from "@github/copilot-sdk/extension";
 
-const BTW_PATTERN = /^\/btw\s+([\s\S]+)/i;
+const BTW_PATTERN = /^btw\s+([\s\S]+)/i;
 
 function parseBtwPrompt(prompt) {
   if (typeof prompt !== "string") return { isBtw: false };
@@ -18,7 +18,7 @@ function parseBtwPrompt(prompt) {
 }
 
 const CONTEXT = [
-  "IMPORTANT: This is a quick side question from the user (via /btw).",
+  "IMPORTANT: This is a quick side question from the user (via btw).",
   "Answer concisely in a few sentences — do NOT use any tools,",
   "do NOT read or edit files, do NOT run commands.",
   "Just answer the question directly and briefly.",
@@ -31,7 +31,7 @@ const session = await joinSession({
       const { isBtw, question } = parseBtwPrompt(input.prompt);
       if (!isBtw) return;
 
-      await session.log("💡 /btw — answering quick side question", { ephemeral: true });
+      await session.log("💡 btw — answering quick side question", { ephemeral: true });
 
       return {
         modifiedPrompt: question,
@@ -40,7 +40,7 @@ const session = await joinSession({
     },
 
     onSessionStart: async () => {
-      await session.log("btw extension loaded — use /btw <question> for quick side questions");
+      await session.log("btw extension loaded — type btw <question> for quick side questions");
     },
   },
   tools: [],

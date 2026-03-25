@@ -1,6 +1,6 @@
 # copilot-btw
 
-A `/btw` slash command extension for [GitHub Copilot CLI](https://github.com/github/copilot-cli) — ask quick side questions without derailing your session.
+A `btw` command extension for [GitHub Copilot CLI](https://github.com/github/copilot-cli) — ask quick side questions without derailing your session.
 
 Inspired by Claude Code's `/btw` command.
 
@@ -8,8 +8,8 @@ Inspired by Claude Code's `/btw` command.
 
 ## What it does
 
-Type `/btw <question>` and get a concise answer inline. The extension intercepts
-your prompt, strips the `/btw` prefix, and instructs the model to:
+Type `btw <question>` and get a concise answer inline. The extension intercepts
+your prompt, strips the `btw` prefix, and instructs the model to:
 
 - Answer in a few sentences
 - **Not** use any tools (no file reads, no shell commands)
@@ -18,11 +18,18 @@ your prompt, strips the `/btw` prefix, and instructs the model to:
 ### Example
 
 ```
-> /btw What does the --frozen-lockfile flag do in npm?
+> btw What does the --frozen-lockfile flag do in npm?
 
 It tells npm ci to fail if package-lock.json is missing or would need
 updating, ensuring reproducible installs.
 ```
+
+### Why `btw` instead of `/btw`?
+
+The Copilot CLI intercepts all `/`-prefixed input as built-in slash commands
+before extensions can see it. Since the extension SDK doesn't support registering
+custom slash commands, we use `btw` (no slash) as the trigger. If the CLI adds
+custom command registration in the future, we'll switch to `/btw`.
 
 ### Limitations
 
@@ -89,7 +96,7 @@ npm test
 
 The extension uses the `onUserPromptSubmitted` hook to:
 
-1. Check if the prompt starts with `/btw`
+1. Check if the prompt starts with `btw`
 2. Strip the prefix and extract the question
 3. Return the question as `modifiedPrompt` with `additionalContext` instructing the model to answer briefly without tools
 
