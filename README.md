@@ -43,51 +43,36 @@ custom command registration in the future, we'll switch to `/btw`.
 
 ## Installation
 
-### Option 1: Per-project (recommended)
+### Recommended: User-scoped (all repos)
 
-Copy the extension into your repo:
-
-```bash
-mkdir -p .github/extensions/btw
-cp <path-to-copilot-btw>/.github/extensions/btw/extension.mjs .github/extensions/btw/
-cp <path-to-copilot-btw>/btw-logic.mjs .github/extensions/btw/btw-logic.mjs
-```
-
-Then update the import path in `extension.mjs`:
-
-```js
-import { parseBtwPrompt, buildModifiedPrompt, buildAdditionalContext } from "./btw-logic.mjs";
-```
-
-### Option 2: User-scoped (all repos)
-
-Copy to your Copilot CLI user extensions directory:
+Copy the standalone single-file extension to your Copilot CLI user extensions directory:
 
 ```powershell
 # Windows
 $extDir = "$env:USERPROFILE\.copilot\extensions\btw"
 New-Item -ItemType Directory -Force -Path $extDir
-Copy-Item .github\extensions\btw\extension.mjs $extDir\
-Copy-Item btw-logic.mjs $extDir\
+Copy-Item standalone\extension.mjs $extDir\extension.mjs
 ```
 
 ```bash
 # macOS / Linux
 mkdir -p ~/.copilot/extensions/btw
-cp .github/extensions/btw/extension.mjs ~/.copilot/extensions/btw/
-cp btw-logic.mjs ~/.copilot/extensions/btw/
-```
-
-Update the import path in `extension.mjs` to `./btw-logic.mjs`.
-
-### Option 3: Self-contained single file
-
-For the simplest install, use the standalone version which has all logic inlined:
-
-```bash
-# Copy just one file — no separate btw-logic.mjs needed
 cp standalone/extension.mjs ~/.copilot/extensions/btw/extension.mjs
 ```
+
+Restart Copilot CLI to pick it up.
+
+### Per-project
+
+Copy the standalone file into your repo's extension directory:
+
+```bash
+mkdir -p .github/extensions/btw
+cp standalone/extension.mjs .github/extensions/btw/extension.mjs
+```
+
+> **Note:** If you install both globally and per-project, the extension will load
+> twice. Pick one.
 
 ## Development
 
@@ -96,6 +81,9 @@ cp standalone/extension.mjs ~/.copilot/extensions/btw/extension.mjs
 npm test
 ```
 
+Core logic is extracted to `btw-logic.mjs` for testability.
+The standalone file in `standalone/extension.mjs` inlines everything for single-file install.
+
 ## How it works
 
 The extension uses the `onUserPromptSubmitted` hook to:
@@ -103,8 +91,6 @@ The extension uses the `onUserPromptSubmitted` hook to:
 1. Check if the prompt starts with `btw`
 2. Strip the prefix and extract the question
 3. Return the question as `modifiedPrompt` with `additionalContext` instructing the model to answer briefly without tools
-
-All testable logic lives in `btw-logic.mjs` — the extension entry point is a thin wrapper.
 
 ## License
 
