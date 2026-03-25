@@ -25,6 +25,8 @@ const CONTEXT = [
   "Do not reference this side question in future responses.",
 ].join(" ");
 
+let hasShownStartup = false;
+
 const session = await joinSession({
   hooks: {
     onUserPromptSubmitted: async (input) => {
@@ -39,8 +41,12 @@ const session = await joinSession({
       };
     },
 
-    onSessionStart: async () => {
-      await session.log("btw extension loaded — type btw <question> for quick side questions");
+    onSessionStart: async (input) => {
+      if (hasShownStartup) return;
+      hasShownStartup = true;
+      if (input.source === "startup" || input.source === "new") {
+        await session.log("btw extension loaded — type btw <question> for quick side questions");
+      }
     },
   },
   tools: [],
