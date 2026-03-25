@@ -33,9 +33,13 @@ custom command registration in the future, we'll switch to `/btw`.
 
 ### Limitations
 
-The Copilot CLI extension SDK doesn't expose a separate model inference API,
-so the question and answer still appear in conversation history. The extension
-minimizes impact by keeping responses short and tool-free.
+- The Copilot CLI extension SDK doesn't expose a separate model inference API,
+  so the question and answer still appear in conversation history. The extension
+  minimizes impact by keeping responses short and tool-free.
+- **Queuing:** If the agent is mid-turn (running tools, generating a response),
+  your `btw` question is queued and won't be answered until the current turn
+  finishes. True "interrupt and answer immediately" behavior requires a
+  first-party ephemeral inference channel — see the [feature request](https://github.com/github/copilot-cli/issues/2280).
 
 ## Installation
 
